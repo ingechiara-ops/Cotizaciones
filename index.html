@@ -422,9 +422,9 @@ async function syncAll(){
     if(Array.isArray(prods)){
       products=prods.map(r=>({
         id:Number(r.id)||Date.now(),
-        nombre:r.nombre||'',
-        parte:r.parte||'',
-        marca:r.marca||'—',
+        nombre:String(r.nombre||'').trim(),
+        parte:String(r.parte||'').trim(),
+        marca:String(r.marca||'—').trim(),
         precio:parseFloat(r.precio)||0,
         garantia:r.garantia||''
       }));
@@ -576,7 +576,7 @@ async function removeProduct(id){
 }
 
 function updateProdCount(){document.getElementById('prod-count').textContent=`${products.length} cargado${products.length!==1?'s':''}`;}
-function matchP(p,q){q=q.toLowerCase();return p.nombre.toLowerCase().includes(q)||p.parte.toLowerCase().includes(q)||(p.marca||'').toLowerCase().includes(q);}
+function matchP(p,q){q=q.trim().toLowerCase();return String(p.nombre||'').trim().toLowerCase().includes(q)||String(p.parte||'').trim().toLowerCase().includes(q)||String(p.marca||'').trim().toLowerCase().includes(q);}
 
 // ══ CLIENTES ══
 async function addClient(){
